@@ -1,7 +1,9 @@
 package hello2
 
+import "time"
+
 type Message struct {
-	ReciviedTime    string
+	ReciviedTime    time.Time
 	ReciviedContent string
 	From            string
 }
