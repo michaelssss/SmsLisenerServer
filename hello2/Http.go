@@ -8,6 +8,12 @@ import (
 	"time"
 )
 
+type Message struct {
+	ReciviedTime    time.Time
+	ReciviedContent string
+	From            string
+}
+
 func Logsms(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("hi"))
 	defer r.Body.Close()
