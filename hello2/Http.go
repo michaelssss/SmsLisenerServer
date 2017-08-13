@@ -7,14 +7,14 @@ import (
 	"net/http"
 )
 
-func SayHello(w http.ResponseWriter, r *http.Request) {
+func Logsms(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("hi"))
 	defer r.Body.Close()
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-
+		fmt.Println(err)
 	}
-	fmt.Println(getMessageFromJson(body))
+	fmt.Println(saveSMS(getMessageFromJson(body)))
 }
 func getMessageFromJson(body []byte) Message {
 	var jsonMap interface{}
@@ -27,5 +27,15 @@ func getMessageFromJson(body []byte) Message {
 	message.ReciviedContent = ReciviedContent
 	message.From = From
 	message.ReciviedTime = ReciviedTime
+	return message
+}
+func saveSMS(message Message) Message {
+	var myconnnection = Connection.DB
+	myconnnection.Begin()
+	result,err := myconnnection.Exec("INSERT INTO sms_log.sms_logs(`recivied_time`, `recivied_content`, `from`)VALUES (?,?,?);", message.ReciviedTime, message.ReciviedContent, message.From)
+	fmt.Println(result)
+	if(err!=nil){
+		fmt.Println(err)
+	}
 	return message
 }
