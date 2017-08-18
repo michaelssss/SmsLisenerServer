@@ -1,4 +1,4 @@
-package hello2
+package functions
 
 import (
 	"encoding/json"
@@ -39,7 +39,8 @@ func getMessageFromJson(body []byte) Message {
 func saveSMS(message Message) Message {
 	var myconnnection = Connection.DB
 	myconnnection.Begin()
-	result, err := myconnnection.Exec("INSERT INTO sms_log.sms_logs(`recivied_time`, `recivied_content`, `from`)VALUES (?,?,?);", message.ReciviedTime, message.ReciviedContent, message.From)
+	stmt, err := myconnnection.Prepare("INSERT INTO sms_log.sms_logs(`recivied_time`, `recivied_content`, `from`)VALUES (?,?,?);")
+	result, err := stmt.Exec(message.ReciviedTime, message.ReciviedContent, message.From)
 	fmt.Println(result)
 	if err != nil {
 		fmt.Println(err)

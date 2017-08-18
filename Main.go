@@ -1,11 +1,12 @@
 package main
 
 import (
-	"./hello2"
+	"./functions"
 	"net/http"
 )
 
 func main() {
-	http.HandleFunc("/logsms", hello2.Logsms)
+	http.HandleFunc("/logsms", functions.Logsms)
+	http.HandleFunc("/printsms", functions.Print)
 	http.ListenAndServe(":8080", nil)
 }

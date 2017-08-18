@@ -1,4 +1,4 @@
-package hello2
+package functions
 
 import (
 	"database/sql"
@@ -10,7 +10,7 @@ type dbconnection struct {
 	sql.DB
 }
 
-var Connection = openConnection("root:liangyuming2@@tcp(127.0.0.1:3306)/sms_log?parseTime=true", 3306)
+var Connection = openConnection("root:liangyuming2@@tcp(127.0.0.1:3305)/sms_log?parseTime=true", 3306)
 
 func openConnection(address string, port int) dbconnection {
 	connection, err := sql.Open("mysql", address)
