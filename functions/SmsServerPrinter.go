@@ -28,7 +28,7 @@ func getAllSms() []byte {
 		result.Scan(&recivied_time, &recivied_content, &from)
 		message := Message{recivied_time, recivied_content, from}
 		dataIndex = dataIndex + 1
-		if (dataIndex >= size) {
+		if dataIndex >= size {
 			size = size * 2
 			tem := make([]Message, size)
 			copy(tem, messages)
