@@ -4,14 +4,20 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"net/url"
 	"time"
 )
 
 var Password string = "123456"
 
 func Print(w http.ResponseWriter, r *http.Request) {
-	pw := r.Header.Get("password")
-	if pw == Password {
+	pw := r.RequestURI
+	pa, err := url.Parse(pw)
+	ps, err := url.ParseQuery(pa.RawQuery)
+	if nil != err {
+		fmt.Println(err)
+	}
+	if ps.Get("password") == Password {
 		w.Write(getAllSms())
 	}
 
