@@ -18,5 +18,7 @@ func openConnection(address string, port int) dbconnection {
 	if err != nil {
 		fmt.Println(err)
 	}
+	connection.SetMaxIdleConns(5)
+	connection.SetMaxOpenConns(5)
 	return dbconnection{*connection}
 }
