@@ -1,14 +1,18 @@
 package main
 
 import (
-	"fmt"
-	"utils"
+	"flag"
+	"net/http"
+
+	"functions"
 )
 
 func main() {
-	utils.LoadStringfile("C:/Users/michaelssss/GoglandProjects/SmsLisenerServer/src/utils/HHH")
-	fmt.Println(utils.Config)
-	//http.HandleFunc("/logsms", functions.Logsms)
-	//http.HandleFunc("/printsms", functions.Print)
-	//http.ListenAndServe(":8080", nil)
+	var password string
+	flag.StringVar(&password, "password", "123456", "password")
+	flag.Parse()
+	functions.Password = password
+	http.HandleFunc("/logsms", functions.Logsms)
+	http.HandleFunc("/printsms", functions.Print)
+	http.ListenAndServe(":8080", nil)
 }

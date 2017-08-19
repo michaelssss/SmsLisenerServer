@@ -1,20 +1,25 @@
 package functions
 
 import (
-	"net/http"
-	"fmt"
-	"time"
 	"encoding/json"
+	"fmt"
+	"net/http"
+	"time"
 )
 
+var Password string = "123456"
+
 func Print(w http.ResponseWriter, r *http.Request) {
-	w.Write(getAllSms())
+	pw := r.Header.Get("password")
+	if pw == Password {
+		w.Write(getAllSms())
+	}
+
 }
 func getAllSms() []byte {
 	var myconnnection = Connection.DB
 	myconnnection.Begin()
 	result, err := myconnnection.Query("select `recivied_time`,`recivied_content`,`from` from sms_log.sms_logs;")
-	fmt.Println(result)
 	if err != nil {
 		fmt.Println(err)
 	}
