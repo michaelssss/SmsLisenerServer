@@ -24,7 +24,6 @@ func Print(w http.ResponseWriter, r *http.Request) {
 }
 func getAllSms() []byte {
 	var myconnnection = Connection.DB
-	myconnnection.Begin()
 	result, err := myconnnection.Query("select `recivied_time`,`recivied_content`,`from` from sms_log.sms_logs;")
 	defer result.Close()
 	if err != nil {
