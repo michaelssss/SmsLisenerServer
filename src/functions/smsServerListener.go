@@ -38,10 +38,11 @@ func getMessageFromJson(body []byte) Message {
 }
 func saveSMS(message Message) Message {
 	var myconnnection = Connection.DB
-	myconnnection.Begin()
-	stmt, err := myconnnection.Prepare("INSERT INTO sms_log.sms_logs(`recivied_time`, `recivied_content`, `from`)VALUES (?,?,?);")
+	tx, _ := myconnnection.Begin()
+	stmt, err := tx.Prepare("INSERT INTO sms_log.sms_logs(`recivied_time`, `recivied_content`, `from`)VALUES (?,?,?);")
 	stmt.Exec(message.ReciviedTime, message.ReciviedContent, message.From)
-	stmt.Close()
+	tx.Commit()
+	defer stmt.Close()
 	if err != nil {
 		fmt.Println(err)
 	}
