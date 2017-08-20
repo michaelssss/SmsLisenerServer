@@ -14,7 +14,7 @@ type dbconnection struct {
 var Connection = OpenConnection()
 
 func OpenConnection() dbconnection {
-	connection, err := sql.Open("mysql", "root:liangyuming2@@tcp(127.0.0.1:3306)/sms_log?parseTime=true&loc=(Asia/Shanghai)")
+	connection, err := sql.Open("mysql", "root:liangyuming2@@tcp(127.0.0.1:3306)/sms_log?parseTime=true&loc=Asia%2FShanghai")
 	if err != nil {
 		fmt.Println(err)
 	}
