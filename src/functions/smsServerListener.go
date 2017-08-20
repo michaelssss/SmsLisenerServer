@@ -40,8 +40,8 @@ func saveSMS(message Message) Message {
 	tx, _ := myconnnection.Begin()
 	stmt, err := tx.Prepare("INSERT INTO sms_log.sms_logs(`recivied_time`, `recivied_content`, `from`)VALUES (?,?,?);")
 	stmt.Exec(message.ReciviedTime, message.ReciviedContent, message.From)
-	defer tx.Commit()
 	defer stmt.Close()
+	defer tx.Commit()
 	if err != nil {
 		fmt.Println(err)
 	}
