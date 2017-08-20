@@ -15,7 +15,6 @@ type Message struct {
 }
 
 func Logsms(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("hi"))
 	defer r.Body.Close()
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -41,7 +40,7 @@ func saveSMS(message Message) Message {
 	tx, _ := myconnnection.Begin()
 	stmt, err := tx.Prepare("INSERT INTO sms_log.sms_logs(`recivied_time`, `recivied_content`, `from`)VALUES (?,?,?);")
 	stmt.Exec(message.ReciviedTime, message.ReciviedContent, message.From)
-	tx.Commit()
+	defer tx.Commit()
 	defer stmt.Close()
 	if err != nil {
 		fmt.Println(err)
