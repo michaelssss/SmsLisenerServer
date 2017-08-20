@@ -11,14 +11,14 @@ type dbconnection struct {
 	sql.DB
 }
 
-var Connection dbconnection
+var Connection = OpenConnection()
 
-func OpenConnection() {
-	connection, err := sql.Open("mysql", "root:liangyuming2@@tcp(127.0.0.1:3306)/sms_log?parseTime=true&loc=Local")
+func OpenConnection() dbconnection {
+	connection, err := sql.Open("mysql", "root:liangyuming2@@tcp(127.0.0.1:3306)/sms_log?parseTime=true&loc=(Asia/Shanghai)")
 	if err != nil {
 		fmt.Println(err)
 	}
 	connection.SetMaxOpenConns(5)
 	connection.Ping()
-	Connection = dbconnection{*connection}
+	return dbconnection{*connection}
 }
