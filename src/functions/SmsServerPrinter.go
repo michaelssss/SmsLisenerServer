@@ -27,7 +27,7 @@ func getAllSms() []byte {
 	result, err := myconnnection.Query("select `recivied_time`,`recivied_content`,`from` from sms_log.sms_logs;")
 	defer result.Close()
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println(err.Error())
 	}
 	size := 4
 	dataIndex := -1
