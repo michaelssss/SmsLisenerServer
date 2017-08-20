@@ -19,7 +19,7 @@ func OpenConnection() {
 		fmt.Println(err)
 	}
 	connection.SetMaxIdleConns(1)
-	connection.SetMaxOpenConns(2)
+	connection.SetMaxOpenConns(5)
 	connection.Ping()
 	Connection = dbconnection{*connection}
 }
