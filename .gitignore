@@ -1,2 +1,9 @@
-.idea/*
-.idea
+/idea/*
+/idea
+/pkg
+/pkg/*
+.idea/HelloWorld.iml
+.idea/dataSources.local.xml
+.idea/dataSources/
+.idea/misc.xml
+.idea/workspace.xml
